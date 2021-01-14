@@ -1,0 +1,16 @@
+schema {
+    query: UserQuery
+}
+type UserQuery {
+    user(id: Int): User
+}
+type User {
+    id: Int!
+    name: String
+    age: Int
+    card: Card
+}
+type Card {
+    cardNumber: String
+    userId: Int
+}
