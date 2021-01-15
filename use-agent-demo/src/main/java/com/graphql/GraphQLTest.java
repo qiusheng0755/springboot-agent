@@ -9,7 +9,6 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 
@@ -32,14 +31,31 @@ public class GraphQLTest {
      */
     public static void main(String[] args) throws IOException {
         //读取GraphQL文件，进行查询
-        String fileName = "user.graphqls";
-        String schema = IOUtils.toString(GraphQLTest.class.getClassLoader().getResource(fileName), "UTF-8");
+//        String fileName = "user.graphqls";
+//        String schema = IOUtils.toString(GraphQLTest.class.getClassLoader().getResource(fileName), "UTF-8");
+        String schema = "schema {\n" +
+                "    query: Query\n" +
+                "}\n" +
+                "type Query {\n" +
+                "    getUserById(id: Int): User\n" +
+                "}\n" +
+                "type User {\n" +
+                "    id: Int!\n" +
+                "    name: String\n" +
+                "    age: Int\n" +
+                "    card: Card\n" +
+                "}\n" +
+                "type Card {\n" +
+                "    cardNumber: String\n" +
+                "    userId: Int\n" +
+                "}";
+
         TypeDefinitionRegistry typeDefinitionRegistry = new SchemaParser().parse(schema);
 
         //解决的是数据的查询
         RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
                 .type("UserQuery", builder ->
-                    builder.dataFetcher("user", environment -> {
+                    builder.dataFetcher("getUserById", environment -> {
                         Integer id = environment.getArgument("id");
                         Card card = new Card("4201021982120333312", id);
                         return new User(id, "张三:"+id, 20+id.intValue(), card);

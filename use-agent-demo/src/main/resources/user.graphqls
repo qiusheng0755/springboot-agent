@@ -1,9 +1,3 @@
-schema {
-    query: UserQuery
-}
-type UserQuery {
-    user(id: Int): User
-}
 type User {
     id: Int!
     name: String
@@ -13,4 +7,8 @@ type User {
 type Card {
     cardNumber: String
     userId: Int
+}
+
+extend type Query {
+    getUserById(id: Int): User
 }
