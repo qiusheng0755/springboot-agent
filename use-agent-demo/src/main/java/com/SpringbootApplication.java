@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringbootApplication {
 
+	//POSTMAN测试  http://localhost:8080/graphql   body->raw 参数 {"query": "query {getUserById(id:1) {id,name,age,card{cardNumber}}}"}
     public static void main(String[] args) {
         SpringApplication.run(SpringbootApplication.class, args);
     }

@@ -50,8 +50,8 @@
                             <addClasspath>true</addClasspath>
                         </manifest>
                         <manifestEntries>
-                            <Premain-Class>CustomAgent</Premain-Class>
-                            <Agent-Class>CustomAgent</Agent-Class>
+                            <Premain-Class>com.apm.agent.CustomAgent</Premain-Class>
+                            <Agent-Class>com.apm.agent.CustomAgent</Agent-Class>
                             <Can-Redefine-Classes>true</Can-Redefine-Classes>
                             <Can-Retransform-Classes>true</Can-Retransform-Classes>
                         </manifestEntries>
