@@ -1,6 +1,7 @@
 package com.object.clone;
 
 import cn.hutool.core.util.StrUtil;
+import com.pojo.Animal;
 import com.pojo.Dog;
 
 public class CloneTest {
@@ -10,16 +11,18 @@ public class CloneTest {
         dog.setValue(10);
         dog.setName("旺财");
         dog.setAge(2);
+        runChild(dog);
+    }
 
-        Dog clone = dog.clone();    //进行对象clone浅克隆
+    public static void runChild(Animal animal) {
+        Animal clone = animal.clone();
 
-        dog.setName("小强");
-        dog.setValue(113);
-        System.out.println(dog);
-        System.out.println(StrUtil.format("dog Name={}, Age={}, Value={}", dog.getName(), dog.getAge(), dog.getValue()));
+        animal.setName("小强");
+        System.out.println(animal);
+        System.out.println(StrUtil.format("dog Name={}, Age={}", animal.getName(), animal.getAge()));
 
         System.out.println(clone);
-        System.out.println(StrUtil.format("clone Name={}, Age={}, Value={}", clone.getName(), clone.getAge(), clone.getValue()));
+        System.out.println(StrUtil.format("clone Name={}, Age={}", clone.getName(), clone.getAge()));
 
     }
 }
