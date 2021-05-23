@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.qiusheng.agent</groupId>
-    <artifactId>custom-agent</artifactId>
+    <artifactId>simple-agent</artifactId>
     <version>1.0.0</version>
     <description>自定义javaAgent探针</description>
 
@@ -18,6 +18,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
 
+        <premain.class>com.apm.agent.SimpleAgent</premain.class>
         <byte-buddy.version>1.10.19</byte-buddy.version>
     </properties>
 
@@ -31,6 +32,13 @@
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
             <version>${byte-buddy.version}</version>
+        </dependency>
+
+        <!-- 使用logback-classic作为底层日志框架 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
         </dependency>
     </dependencies>
 
@@ -50,8 +58,7 @@
                             <addClasspath>true</addClasspath>
                         </manifest>
                         <manifestEntries>
-                            <Premain-Class>com.apm.agent.CustomAgent</Premain-Class>
-                            <Agent-Class>com.apm.agent.CustomAgent</Agent-Class>
+                            <Premain-Class>${premain.class}</Premain-Class>
                             <Can-Redefine-Classes>true</Can-Redefine-Classes>
                             <Can-Retransform-Classes>true</Can-Retransform-Classes>
                         </manifestEntries>
@@ -60,8 +67,10 @@
                 <executions>
                     <execution>
                         <id>make-assembly</id>
+                        <!-- 绑定到package生命周期 -->
                         <phase>package</phase>
                         <goals>
+                            <!-- 只运行一次 -->
                             <goal>single</goal>
                         </goals>
                     </execution>
