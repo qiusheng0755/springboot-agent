@@ -15,7 +15,8 @@
 
 	<modules>
 		<module>use-agent-demo</module>
-	</modules>
+        <module>use-agent-web</module>
+    </modules>
 
 	<properties>
 		<java.version>1.8</java.version>
