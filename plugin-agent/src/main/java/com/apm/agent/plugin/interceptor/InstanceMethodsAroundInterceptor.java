@@ -18,7 +18,6 @@
 
 package com.apm.agent.plugin.interceptor;
 
-import com.apm.agent.plugin.interceptor.enhance.EnhancedInstance;
 import com.apm.agent.plugin.interceptor.enhance.MethodInterceptResult;
 import com.apm.agent.plugin.match.ClassMatch;
 
@@ -40,7 +39,7 @@ public interface InstanceMethodsAroundInterceptor {
      *
      * @param result change this result, if you want to truncate the method.
      */
-    void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+    void beforeMethod(Object objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
                       MethodInterceptResult result) throws Throwable;
 
     /**
@@ -49,7 +48,7 @@ public interface InstanceMethodsAroundInterceptor {
      * @param ret the method's original return value. May be null if the method triggers an exception.
      * @return the method's actual return value.
      */
-    Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
+    Object afterMethod(Object objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes,
                        Object ret) throws Throwable;
 
     /**
@@ -57,6 +56,6 @@ public interface InstanceMethodsAroundInterceptor {
      *
      * @param t the exception occur.
      */
-    void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
+    void handleMethodException(Object objInst, Method method, Object[] allArguments,
                                Class<?>[] argumentsTypes, Throwable t);
 }

@@ -75,9 +75,9 @@ public class PluginAgent {
                 );
 
         agentBuilder
-                .type(pluginFinder.buildMatch())
+//                .type(pluginFinder.buildMatch())
 //                // 根据包名前缀拦截类
-//                .type(ElementMatchers.nameStartsWith("com.agent"))
+                .type(ElementMatchers.nameStartsWith("com.qiusheng.agent.controller"))
                 // 拦截到的类由transformer处理
                 .transform(new Transformer(pluginFinder))
                 // 设置已经被agent 加载到内存里面的类的重定义策略

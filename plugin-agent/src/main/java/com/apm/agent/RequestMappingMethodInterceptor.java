@@ -24,7 +24,6 @@ import com.apm.agent.context.trace.component.OfficialComponent;
 import com.apm.agent.plugin.interceptor.DeclaredInstanceMethodsInterceptPoint;
 import com.apm.agent.plugin.interceptor.InstanceMethodsAroundInterceptor;
 import com.apm.agent.plugin.interceptor.InstanceMethodsInterceptPoint;
-import com.apm.agent.plugin.interceptor.enhance.EnhancedInstance;
 import com.apm.agent.plugin.interceptor.enhance.MethodInterceptResult;
 import com.apm.agent.plugin.match.ClassAnnotationMatch;
 import com.apm.agent.plugin.match.ClassMatch;
@@ -68,7 +67,7 @@ public class RequestMappingMethodInterceptor implements InstanceMethodsAroundInt
     }
 
     @Override
-    public void beforeMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
+    public void beforeMethod(Object objInst, Method method, Object[] allArguments,
                              Class<?>[] argumentsTypes, MethodInterceptResult result) {
 
         AbstractSpan span = ContextManager.createLocalSpan("SpringCloudGateway/RoutingFilter");
@@ -76,7 +75,7 @@ public class RequestMappingMethodInterceptor implements InstanceMethodsAroundInt
     }
 
     @Override
-    public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments,
+    public Object afterMethod(Object objInst, Method method, Object[] allArguments,
                               Class<?>[] argumentsTypes, Object ret) {
 
         ContextManager.stopSpan();
@@ -84,7 +83,7 @@ public class RequestMappingMethodInterceptor implements InstanceMethodsAroundInt
     }
 
     @Override
-    public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments,
+    public void handleMethodException(Object objInst, Method method, Object[] allArguments,
                                       Class<?>[] argumentsTypes, Throwable t) {
 
         ContextManager.activeSpan().errorOccurred().log(t);
