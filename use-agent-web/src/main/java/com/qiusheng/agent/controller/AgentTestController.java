@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * VM Optition设置agent参数
+ * -javaagent:"D:\Workspaces\IntelliJ IDEA\springboot-agent\plugin-agent\target\plugin-agent-1.0.0.jar=abcdefg"
+ *
  * @Author qiusheng
  * @Date 2021-5-28 17:08
  * @Version 1.0
