@@ -1,8 +1,9 @@
 package com.qiusheng.agent.interfaces;
 
-import com.qiusheng.agent.entity.User;
+import com.qiusheng.agent.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @Author qiusheng
@@ -13,6 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface ProviderApi {
 
     @GetMapping("/getUser")
-    User getUser();
+    Result getUser(@RequestParam(value = "name") String name, @RequestParam(value = "phone") String phone);
 
 }

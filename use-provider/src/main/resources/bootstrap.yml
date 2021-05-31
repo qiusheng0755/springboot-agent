@@ -7,6 +7,8 @@ spring:
   cloud:
     nacos:
       server-addr: 172.18.8.101:8848
+      discovery:
+        ip: 172.18.3.146      #服务器上ip
       config:
         file-extension: yaml
     sentinel:

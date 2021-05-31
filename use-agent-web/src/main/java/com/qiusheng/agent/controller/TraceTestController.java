@@ -1,7 +1,9 @@
 package com.qiusheng.agent.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.qiusheng.agent.entity.User;
 import com.qiusheng.agent.interfaces.ProviderApi;
+import com.qiusheng.agent.result.Result;
 import com.qiusheng.agent.service.TraceService;
 import lombok.AllArgsConstructor;
 import org.apache.skywalking.apm.toolkit.trace.ActiveSpan;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -70,12 +73,13 @@ public class TraceTestController {
      * age:18
      */
     @Trace
-    @Tag(key = "tag1", value = "arg[0]")
-    @Tag(key = "tag2", value = "arg[1]")
-    @Tag(key = "name", value = "returnedObj.name")
-    @Tag(key = "age", value = "returnedObj.age")
+    @Tag(key = "param1", value = "arg[0]")
+    @Tag(key = "param2", value = "arg[1]")
+    @Tag(key = "traceId", value = "returnedObj.data.traceId")
+    @Tag(key = "name", value = "returnedObj.data.name")
+    @Tag(key = "age", value = "returnedObj.data.age")
     @GetMapping(value = "/getUser")
-    public User getUser(String name, String phone) {
+    public Result getUser(String name, String phone) {
         ActiveSpan.setOperationName("TraceTestController#getUser");  //Customize an operation name
 //        User user = new User();
 //        user.setTraceId(TraceContext.traceId());
@@ -83,9 +87,17 @@ public class TraceTestController {
 //        user.setPhone(phone);
 //        user.setAge(18);
 
-        User user = providerApi.getUser();
+        Result remoteResult = providerApi.getUser(name, phone);
+        if (!remoteResult.isSuccess()) {
+            return remoteResult;
+        }
+        LinkedHashMap map = (LinkedHashMap) remoteResult.getData();
+        User user = JSON.parseObject(JSON.toJSONString(map), User.class);
         Integer logCount = traceService.getLogCount(user);
+        user.setTraceId(TraceContext.traceId());
         user.setLogCount(logCount);
-        return user;
+        System.out.println(user.toString());
+
+        return Result.success(user);
     }
 }
