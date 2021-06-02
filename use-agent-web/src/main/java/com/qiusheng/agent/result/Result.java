@@ -48,7 +48,7 @@ public class Result<T> implements Serializable {
     }
 
     @JsonCreator
-    protected Result(@JsonProperty(CodeConstant.RESULT_STATUS) int status, @JsonProperty("msg") String msg,
+    protected Result(@JsonProperty("status") int status, @JsonProperty("msg") String msg,
                      @JsonProperty("requesttime") Date requesttime, @JsonProperty("data") T data) {
         this.status = status;
         this.msg = msg;
