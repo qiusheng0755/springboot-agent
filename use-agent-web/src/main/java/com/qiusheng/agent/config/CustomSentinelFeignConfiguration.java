@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 
 /**
- * 自定义默认回调装配类
  *
  * @Author qiusheng
  * @Date 2021-5-30 19:00
@@ -23,6 +22,10 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class CustomSentinelFeignConfiguration {
 
+	/**
+	 * 采用基于sentinel的自定义熔断器
+	 * @return
+	 */
 	@Bean
 	@Scope("prototype")
 	@ConditionalOnClass({ SphU.class, Feign.class })
